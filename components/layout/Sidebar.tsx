@@ -64,9 +64,9 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-60 flex-shrink-0 bg-[#0F1729] border-r border-[#253352] flex flex-col h-screen sticky top-0">
+    <aside className="w-60 flex-shrink-0 bg-[var(--c-nav)] border-r border-[var(--c-border)] flex flex-col h-screen sticky top-0">
       {/* Logo */}
-      <div className="flex items-center gap-3 px-5 h-16 border-b border-[#253352]">
+      <div className="flex items-center gap-3 px-5 h-16 border-b border-[var(--c-border)]">
         {/* VLX Logo Mark */}
         <div className="relative w-8 h-8">
           <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8">
@@ -83,7 +83,7 @@ export default function Sidebar() {
 
       {/* KYPiT Badge */}
       <div className="mx-4 mt-3 mb-1">
-        <div className="flex items-center gap-2 bg-[#1C2844] border border-[#253352] rounded-lg px-3 py-2">
+        <div className="flex items-center gap-2 bg-[var(--c-raised)] border border-[var(--c-border)] rounded-lg px-3 py-2">
           <div className="w-5 h-5 rounded bg-orange-500/20 flex items-center justify-center">
             <span className="text-[9px] font-bold text-orange-400">K</span>
           </div>
@@ -108,7 +108,7 @@ export default function Sidebar() {
                 flex items-center gap-3 px-3 py-2.5 rounded-lg mb-0.5 group transition-all
                 ${isActive
                   ? 'bg-blue-600/20 text-blue-400 border border-blue-500/20'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-[#1C2844]'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-[var(--c-raised)]'
                 }
               `}
             >
@@ -126,7 +126,7 @@ export default function Sidebar() {
       </nav>
 
       {/* Footer */}
-      <div className="px-4 py-4 border-t border-[#253352]">
+      <div className="px-4 py-4 border-t border-[var(--c-border)]">
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-xs font-bold text-white">
             T

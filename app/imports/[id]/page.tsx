@@ -45,7 +45,7 @@ export default function ImportDetailPage({ params }: { params: Promise<{ id: str
       {/* Header */}
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-4">
-          <Link href="/imports" className="w-8 h-8 rounded-lg bg-[#151E33] border border-[#253352] flex items-center justify-center text-slate-400 hover:text-slate-200 transition-colors">
+          <Link href="/imports" className="w-8 h-8 rounded-lg bg-[var(--c-surface)] border border-[var(--c-border)] flex items-center justify-center text-slate-400 hover:text-slate-200 transition-colors">
             <ArrowLeft size={16} />
           </Link>
           <div>
@@ -62,11 +62,11 @@ export default function ImportDetailPage({ params }: { params: Promise<{ id: str
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <Link href={`/map?import=${imp.id}`} className="flex items-center gap-2 bg-[#1C2844] border border-[#253352] text-slate-300 text-sm px-3 py-2 rounded-lg hover:border-blue-500/30 transition-colors">
+          <Link href={`/map?import=${imp.id}`} className="flex items-center gap-2 bg-[var(--c-raised)] border border-[var(--c-border)] text-slate-300 text-sm px-3 py-2 rounded-lg hover:border-blue-500/30 transition-colors">
             <Map size={14} />
             Supply Chain Map
           </Link>
-          <Link href={`/genealogy?import=${imp.id}`} className="flex items-center gap-2 bg-[#1C2844] border border-[#253352] text-slate-300 text-sm px-3 py-2 rounded-lg hover:border-blue-500/30 transition-colors">
+          <Link href={`/genealogy?import=${imp.id}`} className="flex items-center gap-2 bg-[var(--c-raised)] border border-[var(--c-border)] text-slate-300 text-sm px-3 py-2 rounded-lg hover:border-blue-500/30 transition-colors">
             <GitBranch size={14} />
             Product Genealogy
           </Link>
@@ -88,7 +88,7 @@ export default function ImportDetailPage({ params }: { params: Promise<{ id: str
           { label: 'Vessel / Voyage', value: imp.vesselName || '—', sub: imp.voyageNumber || '—' },
           { label: 'BOL Number', value: imp.bolNumber, sub: `${imp.products.length} product line(s)` },
         ].map(item => (
-          <div key={item.label} className="bg-[#151E33] border border-[#253352] rounded-xl p-4">
+          <div key={item.label} className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-4">
             <p className="text-xs text-slate-400 uppercase tracking-wider font-medium">{item.label}</p>
             <p className="text-sm font-semibold text-slate-200 mt-1 font-mono">{item.value}</p>
             <p className="text-xs text-slate-500 mt-0.5">{item.sub}</p>
@@ -98,7 +98,7 @@ export default function ImportDetailPage({ params }: { params: Promise<{ id: str
 
       {/* Financial Summary */}
       <div className="grid grid-cols-3 gap-4">
-        <div className="bg-[#151E33] border border-[#253352] rounded-xl p-5">
+        <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-5">
           <div className="flex items-center gap-2 mb-2">
             <DollarSign size={16} className="text-slate-400" />
             <p className="text-xs text-slate-400 uppercase tracking-wider font-medium">Declared Value</p>
@@ -106,7 +106,7 @@ export default function ImportDetailPage({ params }: { params: Promise<{ id: str
           <p className="text-2xl font-bold text-slate-100">${imp.totalValue.toLocaleString()}</p>
           <p className="text-xs text-slate-500 mt-1">{imp.currency}</p>
         </div>
-        <div className="bg-[#151E33] border border-[#253352] rounded-xl p-5">
+        <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-5">
           <div className="flex items-center gap-2 mb-2">
             <DollarSign size={16} className="text-yellow-400" />
             <p className="text-xs text-slate-400 uppercase tracking-wider font-medium">Total Duties</p>
@@ -114,14 +114,14 @@ export default function ImportDetailPage({ params }: { params: Promise<{ id: str
           <p className="text-2xl font-bold text-yellow-400">${imp.totalDuties.toLocaleString()}</p>
           <p className="text-xs text-slate-500 mt-1">Includes tariffs & fees</p>
         </div>
-        <div className="bg-[#151E33] border border-[#253352] rounded-xl p-5">
+        <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-5">
           <div className="flex items-center gap-2 mb-2">
             <MapPin size={16} className="text-slate-400" />
             <p className="text-xs text-slate-400 uppercase tracking-wider font-medium">Countries of Origin</p>
           </div>
           <div className="flex flex-wrap gap-2 mt-1">
             {imp.countriesOfOrigin.map(c => (
-              <span key={c} className="text-sm font-semibold text-slate-200 bg-[#1C2844] border border-[#253352] px-2 py-0.5 rounded">{c}</span>
+              <span key={c} className="text-sm font-semibold text-slate-200 bg-[var(--c-raised)] border border-[var(--c-border)] px-2 py-0.5 rounded">{c}</span>
             ))}
           </div>
         </div>
@@ -130,8 +130,8 @@ export default function ImportDetailPage({ params }: { params: Promise<{ id: str
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
         {/* Product Lines */}
-        <div className="bg-[#151E33] border border-[#253352] rounded-xl">
-          <div className="flex items-center gap-3 p-5 border-b border-[#253352]">
+        <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl">
+          <div className="flex items-center gap-3 p-5 border-b border-[var(--c-border)]">
             <div className="w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center">
               <Package size={16} className="text-orange-400" />
             </div>
@@ -140,7 +140,7 @@ export default function ImportDetailPage({ params }: { params: Promise<{ id: str
               <p className="text-xs text-slate-400">{imp.products.length} product(s) on this entry</p>
             </div>
           </div>
-          <div className="divide-y divide-[#253352]">
+          <div className="divide-y divide-[var(--c-border)]">
             {imp.products.map((p, i) => {
               const fullProduct = linkedProducts.find(lp => lp?.id === p.productId);
               return (
@@ -189,8 +189,8 @@ export default function ImportDetailPage({ params }: { params: Promise<{ id: str
         </div>
 
         {/* Documents */}
-        <div className="bg-[#151E33] border border-[#253352] rounded-xl">
-          <div className="flex items-center justify-between p-5 border-b border-[#253352]">
+        <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl">
+          <div className="flex items-center justify-between p-5 border-b border-[var(--c-border)]">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
                 <FileText size={16} className="text-blue-400" />
@@ -206,7 +206,7 @@ export default function ImportDetailPage({ params }: { params: Promise<{ id: str
           </div>
           <div className="p-4 space-y-2">
             {imp.documents.map(doc => (
-              <div key={doc.id} className="flex items-center gap-3 p-3 bg-[#1C2844] rounded-lg group hover:bg-[#253352] transition-colors">
+              <div key={doc.id} className="flex items-center gap-3 p-3 bg-[var(--c-raised)] rounded-lg group hover:bg-[#253352] transition-colors">
                 <div className={`px-2 py-0.5 rounded text-[10px] font-semibold flex-shrink-0 ${docTypeColors[doc.type] || docTypeColors.OTHER}`}>
                   {doc.type.replace('_', ' ')}
                 </div>
@@ -215,10 +215,10 @@ export default function ImportDetailPage({ params }: { params: Promise<{ id: str
                   <p className="text-[10px] text-slate-500">{doc.uploadedAt} · {doc.size}</p>
                 </div>
                 <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <button className="w-6 h-6 rounded bg-[#151E33] flex items-center justify-center text-slate-400 hover:text-blue-400 transition-colors">
+                  <button className="w-6 h-6 rounded bg-[var(--c-surface)] flex items-center justify-center text-slate-400 hover:text-blue-400 transition-colors">
                     <Eye size={11} />
                   </button>
-                  <button className="w-6 h-6 rounded bg-[#151E33] flex items-center justify-center text-slate-400 hover:text-blue-400 transition-colors">
+                  <button className="w-6 h-6 rounded bg-[var(--c-surface)] flex items-center justify-center text-slate-400 hover:text-blue-400 transition-colors">
                     <Download size={11} />
                   </button>
                 </div>
@@ -258,7 +258,7 @@ export default function ImportDetailPage({ params }: { params: Promise<{ id: str
       </div>
 
       {/* Supply Chain Route */}
-      <div className="bg-[#151E33] border border-[#253352] rounded-xl p-5">
+      <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-5">
         <div className="flex items-center gap-3 mb-4">
           <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
             <MapPin size={16} className="text-blue-400" />
@@ -273,7 +273,7 @@ export default function ImportDetailPage({ params }: { params: Promise<{ id: str
             <div key={i} className="flex items-center gap-2 flex-shrink-0">
               <div className="flex flex-col items-center">
                 <div className={`w-3 h-3 rounded-full border-2 ${i === imp.coordinates.length - 1 ? 'bg-blue-500 border-blue-400' : 'bg-[#253352] border-[#4A5568]'}`} />
-                <div className="mt-2 bg-[#1C2844] border border-[#253352] rounded-lg px-3 py-2 text-center min-w-[120px]">
+                <div className="mt-2 bg-[var(--c-raised)] border border-[var(--c-border)] rounded-lg px-3 py-2 text-center min-w-[120px]">
                   <p className="text-xs font-semibold text-slate-200">{coord.label}</p>
                   <p className="text-[10px] text-slate-500 mt-0.5">{coord.country} ({coord.countryCode})</p>
                 </div>

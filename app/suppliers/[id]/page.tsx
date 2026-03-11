@@ -61,7 +61,7 @@ export default function SupplierDetailPage({ params }: { params: Promise<{ id: s
       {/* Header */}
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-4">
-          <Link href="/suppliers" className="w-8 h-8 rounded-lg bg-[#151E33] border border-[#253352] flex items-center justify-center text-slate-400 hover:text-slate-200 transition-colors">
+          <Link href="/suppliers" className="w-8 h-8 rounded-lg bg-[var(--c-surface)] border border-[var(--c-border)] flex items-center justify-center text-slate-400 hover:text-slate-200 transition-colors">
             <ArrowLeft size={16} />
           </Link>
           <div>
@@ -98,13 +98,13 @@ export default function SupplierDetailPage({ params }: { params: Promise<{ id: s
             {supplier.ofacCheck.details && ` · ${supplier.ofacCheck.details}`}
           </p>
         </div>
-        <button className="text-xs bg-[#1C2844] border border-[#253352] text-slate-300 px-3 py-1.5 rounded-lg hover:border-blue-500/30 transition-colors">
+        <button className="text-xs bg-[var(--c-raised)] border border-[var(--c-border)] text-slate-300 px-3 py-1.5 rounded-lg hover:border-blue-500/30 transition-colors">
           Re-run Check
         </button>
       </div>
 
       {/* Check Summary Bar */}
-      <div className="bg-[#151E33] border border-[#253352] rounded-xl p-5">
+      <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-5">
         <div className="flex items-center justify-between mb-3">
           <h3 className="text-sm font-semibold text-slate-200">Compliance Summary</h3>
           <p className="text-xs text-slate-500">{passCount}/{supplier.checks.length} checks passing</p>
@@ -130,8 +130,8 @@ export default function SupplierDetailPage({ params }: { params: Promise<{ id: s
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
         {/* Checks by Category */}
-        <div className="bg-[#151E33] border border-[#253352] rounded-xl">
-          <div className="flex items-center gap-3 p-5 border-b border-[#253352]">
+        <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl">
+          <div className="flex items-center gap-3 p-5 border-b border-[var(--c-border)]">
             <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
               <Shield size={16} className="text-blue-400" />
             </div>
@@ -161,8 +161,8 @@ export default function SupplierDetailPage({ params }: { params: Promise<{ id: s
 
         <div className="space-y-6">
           {/* Capabilities */}
-          <div className="bg-[#151E33] border border-[#253352] rounded-xl">
-            <div className="flex items-center justify-between p-5 border-b border-[#253352]">
+          <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl">
+            <div className="flex items-center justify-between p-5 border-b border-[var(--c-border)]">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
                   <Wrench size={16} className="text-emerald-400" />
@@ -178,7 +178,7 @@ export default function SupplierDetailPage({ params }: { params: Promise<{ id: s
                 <div key={cap.tag} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs ${
                   cap.verified
                     ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-300'
-                    : 'bg-[#1C2844] border-[#253352] text-slate-400'
+                    : 'bg-[var(--c-raised)] border-[var(--c-border)] text-slate-400'
                 }`}>
                   {cap.verified ? <CheckCircle size={11} /> : <Clock size={11} />}
                   {cap.tag}
@@ -189,8 +189,8 @@ export default function SupplierDetailPage({ params }: { params: Promise<{ id: s
           </div>
 
           {/* VLX Inspections */}
-          <div className="bg-[#151E33] border border-[#253352] rounded-xl">
-            <div className="flex items-center justify-between p-5 border-b border-[#253352]">
+          <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl">
+            <div className="flex items-center justify-between p-5 border-b border-[var(--c-border)]">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center">
                   <span className="text-[10px] font-bold text-indigo-400">VLX</span>
@@ -203,7 +203,7 @@ export default function SupplierDetailPage({ params }: { params: Promise<{ id: s
             </div>
             <div className="p-4 space-y-3">
               {linkedInspections.map(insp => insp && (
-                <div key={insp.id} className="bg-[#1C2844] rounded-lg p-4">
+                <div key={insp.id} className="bg-[var(--c-raised)] rounded-lg p-4">
                   <div className="flex items-start justify-between gap-2">
                     <div>
                       <p className="text-sm font-medium text-slate-200">{insp.title}</p>
@@ -236,8 +236,8 @@ export default function SupplierDetailPage({ params }: { params: Promise<{ id: s
           </div>
 
           {/* Documents */}
-          <div className="bg-[#151E33] border border-[#253352] rounded-xl">
-            <div className="flex items-center justify-between p-5 border-b border-[#253352]">
+          <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl">
+            <div className="flex items-center justify-between p-5 border-b border-[var(--c-border)]">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-lg bg-slate-500/10 flex items-center justify-center">
                   <FileText size={16} className="text-slate-400" />
@@ -248,7 +248,7 @@ export default function SupplierDetailPage({ params }: { params: Promise<{ id: s
             </div>
             <div className="p-4 space-y-2">
               {supplier.documents.map(doc => (
-                <div key={doc.id} className="flex items-center gap-3 p-2.5 bg-[#1C2844] rounded-lg group hover:bg-[#253352] transition-colors">
+                <div key={doc.id} className="flex items-center gap-3 p-2.5 bg-[var(--c-raised)] rounded-lg group hover:bg-[#253352] transition-colors">
                   <div className={`px-2 py-0.5 rounded text-[10px] font-semibold flex-shrink-0 ${docTypeColors[doc.type] || docTypeColors.OTHER}`}>
                     {doc.type.replace('_', ' ')}
                   </div>
@@ -257,10 +257,10 @@ export default function SupplierDetailPage({ params }: { params: Promise<{ id: s
                     <p className="text-[10px] text-slate-500">{doc.uploadedAt} · {doc.size}</p>
                   </div>
                   <div className="flex gap-1">
-                    <button className="w-6 h-6 rounded bg-[#151E33] flex items-center justify-center text-slate-400 hover:text-blue-400 transition-colors">
+                    <button className="w-6 h-6 rounded bg-[var(--c-surface)] flex items-center justify-center text-slate-400 hover:text-blue-400 transition-colors">
                       <Eye size={11} />
                     </button>
-                    <button className="w-6 h-6 rounded bg-[#151E33] flex items-center justify-center text-slate-400 hover:text-blue-400 transition-colors">
+                    <button className="w-6 h-6 rounded bg-[var(--c-surface)] flex items-center justify-center text-slate-400 hover:text-blue-400 transition-colors">
                       <Download size={11} />
                     </button>
                   </div>

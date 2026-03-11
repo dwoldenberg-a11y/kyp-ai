@@ -99,8 +99,8 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
         {/* Recent Imports */}
-        <div className="bg-[#151E33] border border-[#253352] rounded-xl">
-          <div className="flex items-center justify-between p-5 border-b border-[#253352]">
+        <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl">
+          <div className="flex items-center justify-between p-5 border-b border-[var(--c-border)]">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
                 <Truck size={16} className="text-blue-400" />
@@ -114,9 +114,9 @@ export default function Dashboard() {
               View all <ArrowRight size={12} />
             </Link>
           </div>
-          <div className="divide-y divide-[#253352]">
+          <div className="divide-y divide-[var(--c-border)]">
             {mockImports.map((imp) => (
-              <Link key={imp.id} href={`/imports/${imp.id}`} className="flex items-center gap-4 p-4 hover:bg-[#1C2844] transition-colors group">
+              <Link key={imp.id} href={`/imports/${imp.id}`} className="flex items-center gap-4 p-4 hover:bg-[var(--c-raised)] transition-colors group">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
                     <span className="text-xs font-mono font-semibold text-blue-300">{imp.entryNumber}</span>
@@ -147,8 +147,8 @@ export default function Dashboard() {
         </div>
 
         {/* Products with Scores */}
-        <div className="bg-[#151E33] border border-[#253352] rounded-xl">
-          <div className="flex items-center justify-between p-5 border-b border-[#253352]">
+        <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl">
+          <div className="flex items-center justify-between p-5 border-b border-[var(--c-border)]">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center">
                 <Package size={16} className="text-orange-400" />
@@ -162,9 +162,9 @@ export default function Dashboard() {
               View all <ArrowRight size={12} />
             </Link>
           </div>
-          <div className="divide-y divide-[#253352]">
+          <div className="divide-y divide-[var(--c-border)]">
             {mockProducts.map((product) => (
-              <Link key={product.id} href={`/products/${product.id}`} className="flex items-center gap-4 p-4 hover:bg-[#1C2844] transition-colors group">
+              <Link key={product.id} href={`/products/${product.id}`} className="flex items-center gap-4 p-4 hover:bg-[var(--c-raised)] transition-colors group">
                 <ScoreRingInline score={product.score.overall} size={52} strokeWidth={5} />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
@@ -189,8 +189,8 @@ export default function Dashboard() {
         </div>
 
         {/* Supplier Risk Overview */}
-        <div className="bg-[#151E33] border border-[#253352] rounded-xl">
-          <div className="flex items-center justify-between p-5 border-b border-[#253352]">
+        <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl">
+          <div className="flex items-center justify-between p-5 border-b border-[var(--c-border)]">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
                 <Users size={16} className="text-emerald-400" />
@@ -204,10 +204,10 @@ export default function Dashboard() {
               View all <ArrowRight size={12} />
             </Link>
           </div>
-          <div className="divide-y divide-[#253352]">
+          <div className="divide-y divide-[var(--c-border)]">
             {mockSuppliers.map((sup) => (
-              <Link key={sup.id} href={`/suppliers/${sup.id}`} className="flex items-center gap-4 p-4 hover:bg-[#1C2844] transition-colors group">
-                <div className="w-9 h-9 rounded-lg bg-[#1C2844] border border-[#253352] flex items-center justify-center text-xs font-bold text-slate-300 flex-shrink-0">
+              <Link key={sup.id} href={`/suppliers/${sup.id}`} className="flex items-center gap-4 p-4 hover:bg-[var(--c-raised)] transition-colors group">
+                <div className="w-9 h-9 rounded-lg bg-[var(--c-raised)] border border-[var(--c-border)] flex items-center justify-center text-xs font-bold text-slate-300 flex-shrink-0">
                   {sup.countryCode}
                 </div>
                 <div className="flex-1 min-w-0">
@@ -237,8 +237,8 @@ export default function Dashboard() {
         </div>
 
         {/* Activity Feed */}
-        <div className="bg-[#151E33] border border-[#253352] rounded-xl">
-          <div className="flex items-center gap-3 p-5 border-b border-[#253352]">
+        <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl">
+          <div className="flex items-center gap-3 p-5 border-b border-[var(--c-border)]">
             <div className="w-8 h-8 rounded-lg bg-slate-500/10 flex items-center justify-center">
               <Clock size={16} className="text-slate-400" />
             </div>

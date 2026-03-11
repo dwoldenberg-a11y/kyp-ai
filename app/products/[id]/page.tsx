@@ -57,7 +57,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
       {/* Header */}
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-4">
-          <Link href="/products" className="w-8 h-8 rounded-lg bg-[#151E33] border border-[#253352] flex items-center justify-center text-slate-400 hover:text-slate-200 transition-colors">
+          <Link href="/products" className="w-8 h-8 rounded-lg bg-[var(--c-surface)] border border-[var(--c-border)] flex items-center justify-center text-slate-400 hover:text-slate-200 transition-colors">
             <ArrowLeft size={16} />
           </Link>
           <div>
@@ -74,17 +74,17 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <Link href={`/map?product=${product.id}`} className="flex items-center gap-2 bg-[#1C2844] border border-[#253352] text-slate-300 text-sm px-3 py-2 rounded-lg hover:border-blue-500/30 transition-colors">
+          <Link href={`/map?product=${product.id}`} className="flex items-center gap-2 bg-[var(--c-raised)] border border-[var(--c-border)] text-slate-300 text-sm px-3 py-2 rounded-lg hover:border-blue-500/30 transition-colors">
             <Map size={14} /> Map
           </Link>
-          <Link href={`/genealogy?product=${product.id}`} className="flex items-center gap-2 bg-[#1C2844] border border-[#253352] text-slate-300 text-sm px-3 py-2 rounded-lg hover:border-blue-500/30 transition-colors">
+          <Link href={`/genealogy?product=${product.id}`} className="flex items-center gap-2 bg-[var(--c-raised)] border border-[var(--c-border)] text-slate-300 text-sm px-3 py-2 rounded-lg hover:border-blue-500/30 transition-colors">
             <GitBranch size={14} /> Genealogy
           </Link>
         </div>
       </div>
 
       {/* Score Panel */}
-      <div className="bg-[#151E33] border border-[#253352] rounded-xl p-6">
+      <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-6">
         <div className="flex items-center gap-8">
           {/* Main score */}
           <div className="flex flex-col items-center gap-2 flex-shrink-0">
@@ -101,7 +101,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
               { label: 'Compliance Score', value: product.score.complianceScore, icon: Shield },
               { label: 'Authenticity', value: product.score.authenticity, icon: CheckCircle },
             ].map(s => (
-              <div key={s.label} className="bg-[#1C2844] rounded-lg p-3">
+              <div key={s.label} className="bg-[var(--c-raised)] rounded-lg p-3">
                 <div className="flex items-center gap-1.5 mb-2">
                   <s.icon size={12} className="text-slate-500" />
                   <span className="text-[10px] text-slate-400">{s.label}</span>
@@ -124,7 +124,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
         </div>
 
         {/* Score details */}
-        <div className="mt-4 pt-4 border-t border-[#253352]">
+        <div className="mt-4 pt-4 border-t border-[var(--c-border)]">
           <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">KYPiT Analysis</p>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
             {product.score.details.map((detail, i) => (
@@ -138,7 +138,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-1 border-b border-[#253352]">
+      <div className="flex items-center gap-1 border-b border-[var(--c-border)]">
         {tabs.map(tab => (
           <button
             key={tab.id}
@@ -162,7 +162,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
       {activeTab === 'overview' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Quick Facts */}
-          <div className="bg-[#151E33] border border-[#253352] rounded-xl p-5">
+          <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-5">
             <h3 className="text-sm font-semibold text-slate-200 mb-4">Product Details</h3>
             <dl className="space-y-3">
               {[
@@ -182,7 +182,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
           </div>
 
           {/* VLX Inspections */}
-          <div className="bg-[#151E33] border border-[#253352] rounded-xl p-5">
+          <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-5">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-semibold text-slate-200">VLX Inspections</h3>
               <button className="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1 transition-colors">
@@ -191,7 +191,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
             </div>
             <div className="space-y-3">
               {linkedInspections.map(insp => insp && (
-                <div key={insp.id} className="bg-[#1C2844] rounded-lg p-3">
+                <div key={insp.id} className="bg-[var(--c-raised)] rounded-lg p-3">
                   <div className="flex items-start justify-between gap-2">
                     <div>
                       <p className="text-xs font-medium text-slate-200">{insp.title}</p>
@@ -228,12 +228,12 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
       {activeTab === 'components' && (
         <div className="space-y-4">
           {product.components.map(comp => (
-            <div key={comp.id} className="bg-[#151E33] border border-[#253352] rounded-xl overflow-hidden">
+            <div key={comp.id} className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl overflow-hidden">
               <button
                 onClick={() => setExpandedComp(expandedComp === comp.id ? null : comp.id)}
-                className="w-full flex items-center gap-4 p-5 hover:bg-[#1C2844] transition-colors"
+                className="w-full flex items-center gap-4 p-5 hover:bg-[var(--c-raised)] transition-colors"
               >
-                <div className="w-9 h-9 rounded-lg bg-[#1C2844] border border-[#253352] flex items-center justify-center text-xs font-bold text-slate-300 flex-shrink-0">
+                <div className="w-9 h-9 rounded-lg bg-[var(--c-raised)] border border-[var(--c-border)] flex items-center justify-center text-xs font-bold text-slate-300 flex-shrink-0">
                   {comp.countryCode}
                 </div>
                 <div className="flex-1 text-left min-w-0">
@@ -258,7 +258,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
               </button>
 
               {expandedComp === comp.id && (
-                <div className="border-t border-[#253352] p-5 space-y-4">
+                <div className="border-t border-[var(--c-border)] p-5 space-y-4">
                   <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                     {[
                       { label: 'Supplier', value: comp.supplierName },
@@ -266,7 +266,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
                       { label: 'HTS Code', value: comp.htsCode.code, mono: true },
                       { label: 'Duty Rate', value: comp.htsCode.dutyRate },
                     ].map(item => (
-                      <div key={item.label} className="bg-[#1C2844] rounded-lg p-3">
+                      <div key={item.label} className="bg-[var(--c-raised)] rounded-lg p-3">
                         <p className="text-[10px] text-slate-500 uppercase tracking-wider">{item.label}</p>
                         <p className={`text-sm font-semibold mt-1 ${item.mono ? 'font-mono text-blue-300' : 'text-slate-200'}`}>{item.value}</p>
                       </div>
@@ -292,7 +292,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
                     <p className="text-xs font-semibold text-slate-400 mb-2">Top Import Countries for this HTS</p>
                     <div className="flex flex-wrap gap-2">
                       {comp.htsCode.importsByCountry.map(ic => (
-                        <div key={ic.countryCode} className="flex items-center gap-2 bg-[#1C2844] border border-[#253352] rounded-lg px-3 py-1.5">
+                        <div key={ic.countryCode} className="flex items-center gap-2 bg-[var(--c-raised)] border border-[var(--c-border)] rounded-lg px-3 py-1.5">
                           <span className="text-xs font-semibold text-slate-300">{ic.country}</span>
                           <span className="text-xs text-slate-500">{ic.value}</span>
                         </div>
@@ -306,13 +306,13 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
                       <p className="text-xs font-semibold text-slate-400 mb-2">Supporting Documents</p>
                       <div className="space-y-2">
                         {comp.documents.map(doc => (
-                          <div key={doc.id} className="flex items-center gap-3 p-2.5 bg-[#1C2844] rounded-lg">
+                          <div key={doc.id} className="flex items-center gap-3 p-2.5 bg-[var(--c-raised)] rounded-lg">
                             <div className={`px-2 py-0.5 rounded text-[10px] font-semibold flex-shrink-0 ${docTypeColors[doc.type] || docTypeColors.OTHER}`}>
                               {doc.type.replace('_', ' ')}
                             </div>
                             <span className="text-xs text-slate-300 flex-1">{doc.name}</span>
                             <span className="text-[10px] text-slate-500">{doc.size}</span>
-                            <button className="w-6 h-6 rounded bg-[#151E33] flex items-center justify-center text-slate-400 hover:text-blue-400">
+                            <button className="w-6 h-6 rounded bg-[var(--c-surface)] flex items-center justify-center text-slate-400 hover:text-blue-400">
                               <Eye size={11} />
                             </button>
                           </div>
@@ -352,7 +352,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
                 </div>
 
                 {/* Process card */}
-                <div className="flex-1 bg-[#151E33] border border-[#253352] rounded-xl p-5 mb-4">
+                <div className="flex-1 bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-5 mb-4">
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <div className="flex items-center gap-2">
@@ -366,11 +366,11 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
                         <span className="text-xs text-slate-500">{proc.startDate} → {proc.endDate || 'ongoing'}</span>
                       </div>
                       {proc.notes && (
-                        <p className="text-xs text-slate-400 mt-2 bg-[#1C2844] rounded px-3 py-2">{proc.notes}</p>
+                        <p className="text-xs text-slate-400 mt-2 bg-[var(--c-raised)] rounded px-3 py-2">{proc.notes}</p>
                       )}
                     </div>
                     <div className="flex items-center gap-2 flex-shrink-0">
-                      <button className="flex items-center gap-1.5 text-xs bg-[#1C2844] border border-[#253352] text-slate-300 px-2.5 py-1.5 rounded-lg hover:border-blue-500/30 transition-colors">
+                      <button className="flex items-center gap-1.5 text-xs bg-[var(--c-raised)] border border-[var(--c-border)] text-slate-300 px-2.5 py-1.5 rounded-lg hover:border-blue-500/30 transition-colors">
                         <FileText size={12} /> Attach Doc
                       </button>
                     </div>
@@ -398,7 +398,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
                   {proc.documents.length > 0 && (
                     <div className="mt-3 flex flex-wrap gap-2">
                       {proc.documents.map(doc => (
-                        <div key={doc.id} className="flex items-center gap-1.5 text-[10px] bg-[#1C2844] border border-[#253352] text-slate-400 px-2 py-1 rounded">
+                        <div key={doc.id} className="flex items-center gap-1.5 text-[10px] bg-[var(--c-raised)] border border-[var(--c-border)] text-slate-400 px-2 py-1 rounded">
                           <FileText size={10} />
                           {doc.name}
                         </div>
@@ -428,7 +428,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
       {activeTab === 'hts' && (
         <div className="space-y-4">
           {/* Product HTS */}
-          <div className="bg-[#151E33] border border-[#253352] rounded-xl p-5">
+          <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-5">
             <h3 className="text-sm font-semibold text-slate-200 mb-4">Finished Product Classification</h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -448,7 +448,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
               <div className="space-y-2">
                 {product.htsCode.importsByCountry.map(ic => (
                   <div key={ic.countryCode} className="flex items-center gap-3">
-                    <span className="w-8 text-xs font-semibold text-slate-300 text-center bg-[#1C2844] py-0.5 rounded">{ic.countryCode}</span>
+                    <span className="w-8 text-xs font-semibold text-slate-300 text-center bg-[var(--c-raised)] py-0.5 rounded">{ic.countryCode}</span>
                     <span className="text-xs text-slate-400 flex-1">{ic.country}</span>
                     <span className="text-xs font-semibold text-slate-300">{ic.value}/yr</span>
                   </div>
@@ -458,11 +458,11 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
           </div>
 
           {/* Component HTS codes */}
-          <div className="bg-[#151E33] border border-[#253352] rounded-xl p-5">
+          <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-5">
             <h3 className="text-sm font-semibold text-slate-200 mb-4">Component HTS Classifications</h3>
             <div className="space-y-4">
               {product.components.map(comp => (
-                <div key={comp.id} className="border border-[#253352] rounded-lg p-4">
+                <div key={comp.id} className="border border-[var(--c-border)] rounded-lg p-4">
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <p className="text-sm font-medium text-slate-200">{comp.name}</p>
@@ -488,8 +488,8 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
       )}
 
       {activeTab === 'documents' && (
-        <div className="bg-[#151E33] border border-[#253352] rounded-xl">
-          <div className="flex items-center justify-between p-5 border-b border-[#253352]">
+        <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl">
+          <div className="flex items-center justify-between p-5 border-b border-[var(--c-border)]">
             <h3 className="text-sm font-semibold text-slate-200">Product Documents</h3>
             <button className="flex items-center gap-1.5 text-xs bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-lg transition-colors">
               <Plus size={12} /> Upload Document
@@ -497,7 +497,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
           </div>
           <div className="p-4 space-y-2">
             {product.documents.map(doc => (
-              <div key={doc.id} className="flex items-center gap-3 p-3 bg-[#1C2844] rounded-lg group hover:bg-[#253352] transition-colors">
+              <div key={doc.id} className="flex items-center gap-3 p-3 bg-[var(--c-raised)] rounded-lg group hover:bg-[#253352] transition-colors">
                 <div className={`px-2 py-0.5 rounded text-[10px] font-semibold flex-shrink-0 ${docTypeColors[doc.type] || docTypeColors.OTHER}`}>
                   {doc.type.replace('_', ' ')}
                 </div>
@@ -506,10 +506,10 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
                   <p className="text-[10px] text-slate-500">{doc.uploadedAt} · {doc.size}</p>
                 </div>
                 <div className="flex items-center gap-1">
-                  <button className="w-6 h-6 rounded bg-[#151E33] flex items-center justify-center text-slate-400 hover:text-blue-400 transition-colors">
+                  <button className="w-6 h-6 rounded bg-[var(--c-surface)] flex items-center justify-center text-slate-400 hover:text-blue-400 transition-colors">
                     <Eye size={11} />
                   </button>
-                  <button className="w-6 h-6 rounded bg-[#151E33] flex items-center justify-center text-slate-400 hover:text-blue-400 transition-colors">
+                  <button className="w-6 h-6 rounded bg-[var(--c-surface)] flex items-center justify-center text-slate-400 hover:text-blue-400 transition-colors">
                     <Download size={11} />
                   </button>
                 </div>
@@ -527,30 +527,30 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
       )}
 
       {activeTab === 'skus' && (
-        <div className="bg-[#151E33] border border-[#253352] rounded-xl">
-          <div className="flex items-center justify-between p-5 border-b border-[#253352]">
+        <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl">
+          <div className="flex items-center justify-between p-5 border-b border-[var(--c-border)]">
             <div>
               <h3 className="text-sm font-semibold text-slate-200">SKU Batches</h3>
               <p className="text-xs text-slate-400 mt-0.5">
                 {product.skus.reduce((sum, s) => sum + s.quantity, 0).toLocaleString()} total units across {product.skus.length} SKUs
               </p>
             </div>
-            <button className="flex items-center gap-1.5 text-xs bg-[#1C2844] border border-[#253352] text-slate-300 px-3 py-1.5 rounded-lg hover:border-blue-500/30 transition-colors">
+            <button className="flex items-center gap-1.5 text-xs bg-[var(--c-raised)] border border-[var(--c-border)] text-slate-300 px-3 py-1.5 rounded-lg hover:border-blue-500/30 transition-colors">
               <Plus size={12} /> Add SKU
             </button>
           </div>
           <div className="p-4">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-[#253352]">
+                <tr className="border-b border-[var(--c-border)]">
                   <th className="text-left text-xs font-semibold text-slate-400 uppercase tracking-wider py-2">SKU</th>
                   <th className="text-left text-xs font-semibold text-slate-400 uppercase tracking-wider py-2">Description</th>
                   <th className="text-right text-xs font-semibold text-slate-400 uppercase tracking-wider py-2">Quantity</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#253352]">
+              <tbody className="divide-y divide-[var(--c-border)]">
                 {product.skus.map(sku => (
-                  <tr key={sku.sku} className="hover:bg-[#1C2844] transition-colors">
+                  <tr key={sku.sku} className="hover:bg-[var(--c-raised)] transition-colors">
                     <td className="py-3">
                       <div className="flex items-center gap-2">
                         <Tag size={12} className="text-slate-500" />

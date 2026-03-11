@@ -30,19 +30,19 @@ export default function SuppliersPage() {
 
       {/* Summary */}
       <div className="grid grid-cols-4 gap-4">
-        <div className="bg-[#151E33] border border-[#253352] rounded-xl p-4">
+        <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-4">
           <p className="text-xs text-slate-400 uppercase tracking-wider">Total Suppliers</p>
           <p className="text-2xl font-bold text-slate-100 mt-1">{mockSuppliers.length}</p>
         </div>
-        <div className="bg-[#151E33] border border-[#253352] rounded-xl p-4">
+        <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-4">
           <p className="text-xs text-slate-400 uppercase tracking-wider">OFAC Clear</p>
           <p className="text-2xl font-bold text-emerald-400 mt-1">{mockSuppliers.filter(s => s.ofacCheck.status === 'clear').length}</p>
         </div>
-        <div className="bg-[#151E33] border border-[#253352] rounded-xl p-4">
+        <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-4">
           <p className="text-xs text-slate-400 uppercase tracking-wider">High Risk</p>
           <p className="text-2xl font-bold text-red-400 mt-1">{mockSuppliers.filter(s => s.riskLevel === 'high' || s.riskLevel === 'critical').length}</p>
         </div>
-        <div className="bg-[#151E33] border border-[#253352] rounded-xl p-4">
+        <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-4">
           <p className="text-xs text-slate-400 uppercase tracking-wider">Avg Score</p>
           <p className="text-2xl font-bold text-slate-100 mt-1">
             {Math.round(mockSuppliers.reduce((s, sup) => s + sup.score, 0) / mockSuppliers.length)}
@@ -58,7 +58,7 @@ export default function SuppliersPage() {
           onChange={e => setSearch(e.target.value)}
           type="text"
           placeholder="Search suppliers by name, country, or city..."
-          className="w-full bg-[#151E33] border border-[#253352] text-slate-300 text-sm rounded-lg pl-9 pr-4 py-2.5 focus:outline-none focus:border-blue-500/50 placeholder-slate-500"
+          className="w-full bg-[var(--c-surface)] border border-[var(--c-border)] text-slate-300 text-sm rounded-lg pl-9 pr-4 py-2.5 focus:outline-none focus:border-blue-500/50 placeholder-slate-500"
         />
       </div>
 
@@ -66,10 +66,10 @@ export default function SuppliersPage() {
       <div className="grid grid-cols-1 gap-4">
         {filtered.map(sup => (
           <Link key={sup.id} href={`/suppliers/${sup.id}`} className="block">
-            <div className="bg-[#151E33] border border-[#253352] rounded-xl p-5 card-hover group">
+            <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-5 card-hover group">
               <div className="flex items-start gap-4">
                 {/* Country Badge */}
-                <div className="w-12 h-12 rounded-xl bg-[#1C2844] border border-[#253352] flex items-center justify-center text-base font-bold text-slate-300 flex-shrink-0">
+                <div className="w-12 h-12 rounded-xl bg-[var(--c-raised)] border border-[var(--c-border)] flex items-center justify-center text-base font-bold text-slate-300 flex-shrink-0">
                   {sup.countryCode}
                 </div>
 
@@ -120,7 +120,7 @@ export default function SuppliersPage() {
                       <span key={cap.tag} className={`text-[10px] px-2 py-0.5 rounded-full border ${
                         cap.verified
                           ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
-                          : 'bg-[#1C2844] border-[#253352] text-slate-500'
+                          : 'bg-[var(--c-raised)] border-[var(--c-border)] text-slate-500'
                       }`}>
                         {cap.verified ? '✓ ' : ''}{cap.tag}
                       </span>

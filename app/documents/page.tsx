@@ -153,7 +153,7 @@ export default function DocumentsPage() {
       </div>
 
       {/* Upload Zone */}
-      <div className="bg-[#151E33] border border-[#253352] rounded-xl p-6">
+      <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-6">
         <h3 className="text-sm font-semibold text-slate-200 mb-4 flex items-center gap-2">
           <Wand2 size={16} className="text-blue-400" />
           AI Document Extraction
@@ -180,7 +180,7 @@ export default function DocumentsPage() {
                     className={`text-xs px-3 py-1.5 rounded-lg border transition-all ${
                       selectedDocType === dt.value
                         ? 'bg-blue-600/20 border-blue-500/40 text-blue-300'
-                        : 'bg-[#1C2844] border-[#253352] text-slate-400 hover:text-slate-200'
+                        : 'bg-[var(--c-raised)] border-[var(--c-border)] text-slate-400 hover:text-slate-200'
                     }`}
                   >
                     {dt.label}
@@ -197,7 +197,7 @@ export default function DocumentsPage() {
                   ? 'border-blue-500 bg-blue-500/10'
                   : uploadedFile
                     ? 'border-emerald-500/40 bg-emerald-500/5'
-                    : 'border-[#253352] hover:border-blue-500/40 hover:bg-blue-500/5'
+                    : 'border-[var(--c-border)] hover:border-blue-500/40 hover:bg-blue-500/5'
               }`}
             >
               <input {...getInputProps()} />
@@ -210,7 +210,7 @@ export default function DocumentsPage() {
                   </div>
                   <button
                     onClick={e => { e.stopPropagation(); setUploadedFile(null); }}
-                    className="w-6 h-6 rounded-full bg-[#1C2844] flex items-center justify-center text-slate-400 hover:text-red-400 transition-colors"
+                    className="w-6 h-6 rounded-full bg-[var(--c-raised)] flex items-center justify-center text-slate-400 hover:text-red-400 transition-colors"
                   >
                     <X size={12} />
                   </button>
@@ -241,7 +241,7 @@ export default function DocumentsPage() {
             {!uploadedFile && (
               <button
                 onClick={() => { setUploadedFile(new File(['demo'], 'demo_document.pdf')); handleExtract(); }}
-                className="w-full flex items-center justify-center gap-2 bg-[#1C2844] border border-[#253352] hover:border-blue-500/30 text-slate-300 text-sm font-medium py-3 rounded-lg transition-colors"
+                className="w-full flex items-center justify-center gap-2 bg-[var(--c-raised)] border border-[var(--c-border)] hover:border-blue-500/30 text-slate-300 text-sm font-medium py-3 rounded-lg transition-colors"
               >
                 <Wand2 size={16} className="text-blue-400" />
                 Try Demo Extraction ({selectedDocType.replace('_', ' ')})
@@ -271,7 +271,7 @@ export default function DocumentsPage() {
             </div>
 
             {/* Extracted fields */}
-            <div className="bg-[#1C2844] rounded-xl p-4">
+            <div className="bg-[var(--c-raised)] rounded-xl p-4">
               <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Extracted Fields</p>
               <div className="grid grid-cols-2 gap-3">
                 {Object.entries(confirmedFields).map(([key, value]) => (
@@ -280,7 +280,7 @@ export default function DocumentsPage() {
                     <input
                       value={value}
                       onChange={e => setConfirmedFields(prev => ({ ...prev, [key]: e.target.value }))}
-                      className="w-full bg-[#151E33] border border-[#253352] text-slate-300 text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-blue-500/50"
+                      className="w-full bg-[var(--c-surface)] border border-[var(--c-border)] text-slate-300 text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-blue-500/50"
                     />
                   </div>
                 ))}
@@ -293,7 +293,7 @@ export default function DocumentsPage() {
                 <p className="text-xs font-semibold text-blue-300 mb-3">Smart Suggestions</p>
                 <div className="space-y-2">
                   {extracted.suggestions.map((sug, i) => (
-                    <div key={i} className="flex items-center gap-3 bg-[#1C2844] rounded-lg p-3">
+                    <div key={i} className="flex items-center gap-3 bg-[var(--c-raised)] rounded-lg p-3">
                       <div className={`w-6 h-6 rounded flex items-center justify-center flex-shrink-0 ${sug.isNew ? 'bg-blue-500/20' : 'bg-emerald-500/20'}`}>
                         {sug.isNew
                           ? <span className="text-[9px] font-bold text-blue-400">NEW</span>
@@ -318,7 +318,7 @@ export default function DocumentsPage() {
               </button>
               <button
                 onClick={() => { setStage('upload'); setUploadedFile(null); setExtracted(null); }}
-                className="px-4 py-3 bg-[#1C2844] border border-[#253352] text-slate-300 text-sm rounded-lg hover:border-red-500/30 transition-colors"
+                className="px-4 py-3 bg-[var(--c-raised)] border border-[var(--c-border)] text-slate-300 text-sm rounded-lg hover:border-red-500/30 transition-colors"
               >
                 Cancel
               </button>
@@ -346,8 +346,8 @@ export default function DocumentsPage() {
       </div>
 
       {/* All Documents */}
-      <div className="bg-[#151E33] border border-[#253352] rounded-xl">
-        <div className="flex items-center justify-between p-5 border-b border-[#253352]">
+      <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl">
+        <div className="flex items-center justify-between p-5 border-b border-[var(--c-border)]">
           <div>
             <h3 className="text-sm font-semibold text-slate-200">All Documents</h3>
             <p className="text-xs text-slate-400">{allDocs.length} documents across imports, products, and suppliers</p>
@@ -358,13 +358,13 @@ export default function DocumentsPage() {
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="Search documents..."
-              className="bg-[#1C2844] border border-[#253352] text-slate-300 text-xs rounded-lg pl-8 pr-4 py-2 w-48 focus:outline-none focus:border-blue-500/50 placeholder-slate-500"
+              className="bg-[var(--c-raised)] border border-[var(--c-border)] text-slate-300 text-xs rounded-lg pl-8 pr-4 py-2 w-48 focus:outline-none focus:border-blue-500/50 placeholder-slate-500"
             />
           </div>
         </div>
-        <div className="divide-y divide-[#253352]">
+        <div className="divide-y divide-[var(--c-border)]">
           {filteredDocs.slice(0, 20).map(doc => (
-            <div key={doc.id} className="flex items-center gap-4 px-5 py-3 hover:bg-[#1C2844] transition-colors group">
+            <div key={doc.id} className="flex items-center gap-4 px-5 py-3 hover:bg-[var(--c-raised)] transition-colors group">
               <div className={`px-2 py-0.5 rounded text-[10px] font-semibold flex-shrink-0 ${docTypeColors[doc.type] || docTypeColors.OTHER}`}>
                 {doc.type.replace('_', ' ')}
               </div>

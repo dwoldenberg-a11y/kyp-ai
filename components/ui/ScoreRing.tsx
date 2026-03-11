@@ -30,7 +30,7 @@ export default function ScoreRing({ score, size = 80, strokeWidth = 6, label, sh
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="#1C2844"
+          stroke="var(--c-raised)"
           strokeWidth={strokeWidth}
         />
         {/* Score ring */}
@@ -72,7 +72,7 @@ export function ScoreRingInline({ score, size = 80, strokeWidth = 6 }: ScoreRing
   return (
     <div className="relative inline-flex items-center justify-center" style={{ width: size, height: size }}>
       <svg width={size} height={size} className="absolute -rotate-90">
-        <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke="#1C2844" strokeWidth={strokeWidth} />
+        <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke="var(--c-raised)" strokeWidth={strokeWidth} />
         <circle
           cx={size / 2}
           cy={size / 2}

@@ -13,7 +13,7 @@ export default function Card({ children, className = '', hover, glow }: CardProp
   return (
     <div
       className={`
-        bg-[#151E33] border border-[#253352] rounded-xl
+        bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl
         ${hover ? 'card-hover cursor-pointer' : ''}
         ${glow ? 'glow-border' : ''}
         ${className}
@@ -33,10 +33,10 @@ interface CardHeaderProps {
 
 export function CardHeader({ title, subtitle, actions, icon }: CardHeaderProps) {
   return (
-    <div className="flex items-start justify-between p-5 border-b border-[#253352]">
+    <div className="flex items-start justify-between p-5 border-b border-[var(--c-border)]">
       <div className="flex items-center gap-3">
         {icon && (
-          <div className="w-9 h-9 rounded-lg bg-[#1C2844] flex items-center justify-center text-blue-400">
+          <div className="w-9 h-9 rounded-lg bg-[var(--c-raised)] flex items-center justify-center text-blue-400">
             {icon}
           </div>
         )}

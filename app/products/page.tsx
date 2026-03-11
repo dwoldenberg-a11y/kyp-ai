@@ -39,7 +39,7 @@ export default function ProductsPage() {
           onChange={e => setSearch(e.target.value)}
           type="text"
           placeholder="Search by product name, HTS code, or SKU..."
-          className="w-full bg-[#151E33] border border-[#253352] text-slate-300 text-sm rounded-lg pl-9 pr-4 py-2.5 focus:outline-none focus:border-blue-500/50 placeholder-slate-500"
+          className="w-full bg-[var(--c-surface)] border border-[var(--c-border)] text-slate-300 text-sm rounded-lg pl-9 pr-4 py-2.5 focus:outline-none focus:border-blue-500/50 placeholder-slate-500"
         />
       </div>
 
@@ -47,7 +47,7 @@ export default function ProductsPage() {
       <div className="grid grid-cols-1 gap-4">
         {filtered.map(product => (
           <Link key={product.id} href={`/products/${product.id}`} className="block">
-            <div className="bg-[#151E33] border border-[#253352] rounded-xl p-5 card-hover group">
+            <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-5 card-hover group">
               <div className="flex items-start gap-5">
 
                 {/* Score Ring */}
@@ -129,7 +129,7 @@ export default function ProductsPage() {
                             {s.value}%
                           </span>
                         </div>
-                        <div className="h-1 rounded-full bg-[#1C2844] overflow-hidden">
+                        <div className="h-1 rounded-full bg-[var(--c-raised)] overflow-hidden">
                           <div
                             className={`h-full rounded-full ${s.value >= 80 ? 'bg-emerald-500' : s.value >= 60 ? 'bg-yellow-500' : 'bg-red-500'}`}
                             style={{ width: `${s.value}%` }}
@@ -143,7 +143,7 @@ export default function ProductsPage() {
                   <div className="flex items-center gap-2 mt-3 flex-wrap">
                     <span className="text-[10px] text-slate-500 uppercase tracking-wider">SKUs:</span>
                     {product.skus.slice(0, 4).map(sku => (
-                      <span key={sku.sku} className="text-[10px] font-mono bg-[#1C2844] border border-[#253352] text-slate-400 px-2 py-0.5 rounded">
+                      <span key={sku.sku} className="text-[10px] font-mono bg-[var(--c-raised)] border border-[var(--c-border)] text-slate-400 px-2 py-0.5 rounded">
                         {sku.sku} ×{sku.quantity}
                       </span>
                     ))}

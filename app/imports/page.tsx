@@ -35,17 +35,17 @@ export default function ImportsPage() {
 
       {/* Summary Cards */}
       <div className="grid grid-cols-3 gap-4">
-        <div className="bg-[#151E33] border border-[#253352] rounded-xl p-5">
+        <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-5">
           <p className="text-xs text-slate-400 uppercase tracking-wider font-medium">Total Entries</p>
           <p className="text-2xl font-bold text-slate-100 mt-1">{mockImports.length}</p>
           <p className="text-xs text-slate-500 mt-1">All time</p>
         </div>
-        <div className="bg-[#151E33] border border-[#253352] rounded-xl p-5">
+        <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-5">
           <p className="text-xs text-slate-400 uppercase tracking-wider font-medium">Total Duties Paid</p>
           <p className="text-2xl font-bold text-yellow-400 mt-1">${totalDuties.toLocaleString()}</p>
           <p className="text-xs text-slate-500 mt-1">Across all entries</p>
         </div>
-        <div className="bg-[#151E33] border border-[#253352] rounded-xl p-5">
+        <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-5">
           <p className="text-xs text-slate-400 uppercase tracking-wider font-medium">Total Import Value</p>
           <p className="text-2xl font-bold text-slate-100 mt-1">${totalValue.toLocaleString()}</p>
           <p className="text-xs text-slate-500 mt-1">CIF declared value</p>
@@ -61,20 +61,20 @@ export default function ImportsPage() {
             onChange={e => setSearch(e.target.value)}
             type="text"
             placeholder="Search by entry number, importer, or BOL..."
-            className="w-full bg-[#151E33] border border-[#253352] text-slate-300 text-sm rounded-lg pl-9 pr-4 py-2.5 focus:outline-none focus:border-blue-500/50 placeholder-slate-500"
+            className="w-full bg-[var(--c-surface)] border border-[var(--c-border)] text-slate-300 text-sm rounded-lg pl-9 pr-4 py-2.5 focus:outline-none focus:border-blue-500/50 placeholder-slate-500"
           />
         </div>
-        <button className="flex items-center gap-2 bg-[#151E33] border border-[#253352] text-slate-300 text-sm px-4 py-2.5 rounded-lg hover:border-blue-500/30 transition-colors">
+        <button className="flex items-center gap-2 bg-[var(--c-surface)] border border-[var(--c-border)] text-slate-300 text-sm px-4 py-2.5 rounded-lg hover:border-blue-500/30 transition-colors">
           <Filter size={14} />
           Filter
         </button>
       </div>
 
       {/* Imports Table */}
-      <div className="bg-[#151E33] border border-[#253352] rounded-xl overflow-hidden">
+      <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl overflow-hidden">
         <table className="w-full">
           <thead>
-            <tr className="border-b border-[#253352]">
+            <tr className="border-b border-[var(--c-border)]">
               <th className="text-left text-xs font-semibold text-slate-400 uppercase tracking-wider px-5 py-3">Entry Number</th>
               <th className="text-left text-xs font-semibold text-slate-400 uppercase tracking-wider px-4 py-3">Port</th>
               <th className="text-left text-xs font-semibold text-slate-400 uppercase tracking-wider px-4 py-3">Entry Date</th>
@@ -86,9 +86,9 @@ export default function ImportsPage() {
               <th className="px-4 py-3" />
             </tr>
           </thead>
-          <tbody className="divide-y divide-[#253352]">
+          <tbody className="divide-y divide-[var(--c-border)]">
             {filtered.map(imp => (
-              <tr key={imp.id} className="hover:bg-[#1C2844] transition-colors group">
+              <tr key={imp.id} className="hover:bg-[var(--c-raised)] transition-colors group">
                 <td className="px-5 py-4">
                   <div>
                     <span className="text-sm font-mono font-semibold text-blue-300">{imp.entryNumber}</span>
@@ -109,7 +109,7 @@ export default function ImportsPage() {
                 <td className="px-4 py-4">
                   <div className="flex flex-wrap gap-1">
                     {imp.countriesOfOrigin.map(c => (
-                      <span key={c} className="text-xs bg-[#1C2844] border border-[#253352] text-slate-300 px-2 py-0.5 rounded-full">{c}</span>
+                      <span key={c} className="text-xs bg-[var(--c-raised)] border border-[var(--c-border)] text-slate-300 px-2 py-0.5 rounded-full">{c}</span>
                     ))}
                   </div>
                 </td>

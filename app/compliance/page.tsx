@@ -40,7 +40,7 @@ export default function CompliancePage() {
 
       {/* Summary Cards */}
       <div className="grid grid-cols-4 gap-4">
-        <div className="bg-[#151E33] border border-[#253352] rounded-xl p-5">
+        <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-5">
           <div className="flex items-center gap-2 mb-2">
             <Shield size={16} className="text-emerald-400" />
             <p className="text-xs text-slate-400 uppercase tracking-wider">OFAC Status</p>
@@ -48,7 +48,7 @@ export default function CompliancePage() {
           <p className="text-2xl font-bold text-emerald-400">{mockSuppliers.filter(s => s.ofacCheck.status === 'clear').length}/{mockSuppliers.length}</p>
           <p className="text-xs text-slate-500 mt-1">Suppliers clear</p>
         </div>
-        <div className="bg-[#151E33] border border-[#253352] rounded-xl p-5">
+        <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-5">
           <div className="flex items-center gap-2 mb-2">
             <AlertTriangle size={16} className="text-orange-400" />
             <p className="text-xs text-slate-400 uppercase tracking-wider">AD/CVD Cases</p>
@@ -56,7 +56,7 @@ export default function CompliancePage() {
           <p className="text-2xl font-bold text-orange-400">{allAdcvd.length}</p>
           <p className="text-xs text-slate-500 mt-1">Active cases</p>
         </div>
-        <div className="bg-[#151E33] border border-[#253352] rounded-xl p-5">
+        <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-5">
           <div className="flex items-center gap-2 mb-2">
             <Globe size={16} className="text-blue-400" />
             <p className="text-xs text-slate-400 uppercase tracking-wider">HTS Codes</p>
@@ -64,7 +64,7 @@ export default function CompliancePage() {
           <p className="text-2xl font-bold text-slate-100">{new Set(allHts.map(h => h.code)).size}</p>
           <p className="text-xs text-slate-500 mt-1">Unique classifications</p>
         </div>
-        <div className="bg-[#151E33] border border-[#253352] rounded-xl p-5">
+        <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-5">
           <div className="flex items-center gap-2 mb-2">
             <DollarSign size={16} className="text-yellow-400" />
             <p className="text-xs text-slate-400 uppercase tracking-wider">Duty Exposure</p>
@@ -75,7 +75,7 @@ export default function CompliancePage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-1 border-b border-[#253352]">
+      <div className="flex items-center gap-1 border-b border-[var(--c-border)]">
         {[
           { id: 'ofac' as Tab, label: 'OFAC & Sanctions', count: mockSuppliers.length },
           { id: 'adcvd' as Tab, label: 'AD/CVD Cases', count: allAdcvd.length },
@@ -102,9 +102,9 @@ export default function CompliancePage() {
           </p>
           <div className="grid grid-cols-1 gap-3">
             {mockSuppliers.map(sup => (
-              <div key={sup.id} className="bg-[#151E33] border border-[#253352] rounded-xl p-5">
+              <div key={sup.id} className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-5">
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-[#1C2844] border border-[#253352] flex items-center justify-center text-sm font-bold text-slate-300">
+                  <div className="w-10 h-10 rounded-lg bg-[var(--c-raised)] border border-[var(--c-border)] flex items-center justify-center text-sm font-bold text-slate-300">
                     {sup.countryCode}
                   </div>
                   <div className="flex-1">
@@ -118,7 +118,7 @@ export default function CompliancePage() {
                           {sup.ofacCheck.status === 'clear' ? <CheckCircle size={16} /> : <XCircle size={16} />}
                           {sup.ofacCheck.status === 'clear' ? 'CLEAR' : 'FLAGGED'}
                         </div>
-                        <button className="text-xs bg-[#1C2844] border border-[#253352] text-slate-300 px-2.5 py-1.5 rounded-lg hover:border-blue-500/30 transition-colors">
+                        <button className="text-xs bg-[var(--c-raised)] border border-[var(--c-border)] text-slate-300 px-2.5 py-1.5 rounded-lg hover:border-blue-500/30 transition-colors">
                           Re-run
                         </button>
                       </div>
@@ -129,7 +129,7 @@ export default function CompliancePage() {
                         { label: 'BIS Entity List', status: 'pass' as const },
                         { label: 'UFLPA List', status: 'pass' as const },
                       ].map(check => (
-                        <div key={check.label} className="flex items-center gap-2 bg-[#1C2844] rounded-lg px-3 py-2">
+                        <div key={check.label} className="flex items-center gap-2 bg-[var(--c-raised)] rounded-lg px-3 py-2">
                           {check.status === 'pass'
                             ? <CheckCircle size={12} className="text-emerald-400 flex-shrink-0" />
                             : <XCircle size={12} className="text-red-400 flex-shrink-0" />
@@ -158,7 +158,7 @@ export default function CompliancePage() {
             </div>
           ) : (
             allAdcvd.map((c, i) => (
-              <div key={i} className="bg-[#151E33] border border-orange-500/20 rounded-xl p-5">
+              <div key={i} className="bg-[var(--c-surface)] border border-orange-500/20 rounded-xl p-5">
                 <div className="flex items-start gap-4">
                   <div className="w-9 h-9 rounded-lg bg-orange-500/10 flex items-center justify-center flex-shrink-0">
                     <AlertTriangle size={16} className="text-orange-400" />
@@ -202,10 +202,10 @@ export default function CompliancePage() {
 
       {/* HTS Tab */}
       {tab === 'hts' && (
-        <div className="bg-[#151E33] border border-[#253352] rounded-xl overflow-hidden">
+        <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl overflow-hidden">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-[#253352]">
+              <tr className="border-b border-[var(--c-border)]">
                 <th className="text-left text-xs font-semibold text-slate-400 uppercase tracking-wider px-5 py-3">HTS Code</th>
                 <th className="text-left text-xs font-semibold text-slate-400 uppercase tracking-wider px-4 py-3">Product / Component</th>
                 <th className="text-left text-xs font-semibold text-slate-400 uppercase tracking-wider px-4 py-3">Duty Rate</th>
@@ -213,9 +213,9 @@ export default function CompliancePage() {
                 <th className="text-left text-xs font-semibold text-slate-400 uppercase tracking-wider px-4 py-3">Top Import Countries</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#253352]">
+            <tbody className="divide-y divide-[var(--c-border)]">
               {allHts.map((h, i) => (
-                <tr key={i} className="hover:bg-[#1C2844] transition-colors">
+                <tr key={i} className="hover:bg-[var(--c-raised)] transition-colors">
                   <td className="px-5 py-4">
                     <span className="text-sm font-mono font-semibold text-blue-300">{h.code}</span>
                     <p className="text-[10px] text-slate-500 mt-0.5 max-w-[200px] truncate">{h.desc}</p>
@@ -235,7 +235,7 @@ export default function CompliancePage() {
                   <td className="px-4 py-4">
                     <div className="flex flex-wrap gap-1">
                       {h.countries.slice(0, 3).map(c => (
-                        <span key={c.countryCode} className="text-[10px] bg-[#1C2844] border border-[#253352] text-slate-400 px-1.5 py-0.5 rounded">
+                        <span key={c.countryCode} className="text-[10px] bg-[var(--c-raised)] border border-[var(--c-border)] text-slate-400 px-1.5 py-0.5 rounded">
                           {c.countryCode} {c.value}
                         </span>
                       ))}

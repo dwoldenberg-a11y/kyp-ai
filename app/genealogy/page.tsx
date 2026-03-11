@@ -30,7 +30,7 @@ export default function GenealogyPage() {
               className={`text-sm px-4 py-2 rounded-lg border transition-all ${
                 selectedProduct === p.id
                   ? 'bg-blue-600 border-blue-500 text-white'
-                  : 'bg-[#151E33] border-[#253352] text-slate-400 hover:text-slate-200'
+                  : 'bg-[var(--c-surface)] border-[var(--c-border)] text-slate-400 hover:text-slate-200'
               }`}
             >
               {p.name.split(' ').slice(0, 2).join(' ')}
@@ -42,7 +42,7 @@ export default function GenealogyPage() {
       {product && (
         <>
           {/* Product Header Card */}
-          <div className="bg-[#151E33] border border-[#253352] rounded-xl p-5">
+          <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-5">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
@@ -58,7 +58,7 @@ export default function GenealogyPage() {
                   <p className="text-2xl font-bold text-blue-400">{product.score.overall}</p>
                   <p className="text-[10px] text-slate-500">Passport Score</p>
                 </div>
-                <Link href={`/products/${product.id}`} className="flex items-center gap-1.5 text-xs bg-[#1C2844] border border-[#253352] text-slate-300 px-3 py-2 rounded-lg hover:border-blue-500/30 transition-colors">
+                <Link href={`/products/${product.id}`} className="flex items-center gap-1.5 text-xs bg-[var(--c-raised)] border border-[var(--c-border)] text-slate-300 px-3 py-2 rounded-lg hover:border-blue-500/30 transition-colors">
                   View Passport <ChevronRight size={12} />
                 </Link>
               </div>
@@ -77,9 +77,9 @@ export default function GenealogyPage() {
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 ml-8">
                 {product.components.map(comp => (
-                  <div key={comp.id} className="bg-[#151E33] border border-[#253352] rounded-xl p-4">
+                  <div key={comp.id} className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-4">
                     <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-[#1C2844] border border-[#253352] flex items-center justify-center text-xs font-bold text-slate-300 flex-shrink-0">
+                      <div className="w-8 h-8 rounded-lg bg-[var(--c-raised)] border border-[var(--c-border)] flex items-center justify-center text-xs font-bold text-slate-300 flex-shrink-0">
                         {comp.countryCode}
                       </div>
                       <div className="flex-1">
@@ -143,7 +143,7 @@ export default function GenealogyPage() {
                           <div className="w-px h-6 bg-[#253352] mt-1" />
                         )}
                       </div>
-                      <div className="flex-1 bg-[#151E33] border border-[#253352] rounded-xl p-4 mb-2">
+                      <div className="flex-1 bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-4 mb-2">
                         <div className="flex items-start justify-between gap-4">
                           <div>
                             <div className="flex items-center gap-2">
@@ -161,7 +161,7 @@ export default function GenealogyPage() {
                               <span className="text-xs text-slate-500">{proc.startDate} → {proc.endDate || 'ongoing'}</span>
                             </div>
                             {proc.notes && (
-                              <p className="text-xs text-slate-400 mt-2 bg-[#1C2844] rounded px-3 py-1.5">{proc.notes}</p>
+                              <p className="text-xs text-slate-400 mt-2 bg-[var(--c-raised)] rounded px-3 py-1.5">{proc.notes}</p>
                             )}
                           </div>
                         </div>
@@ -189,7 +189,7 @@ export default function GenealogyPage() {
                         {proc.documents.length > 0 && (
                           <div className="mt-2 flex items-center gap-2">
                             {proc.documents.map(doc => (
-                              <div key={doc.id} className="flex items-center gap-1 text-[10px] bg-[#1C2844] border border-[#253352] text-slate-400 px-2 py-1 rounded">
+                              <div key={doc.id} className="flex items-center gap-1 text-[10px] bg-[var(--c-raised)] border border-[var(--c-border)] text-slate-400 px-2 py-1 rounded">
                                 <FileText size={10} />
                                 {doc.name}
                               </div>

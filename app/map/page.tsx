@@ -12,7 +12,7 @@ import { ScoreRingInline } from '@/components/ui/ScoreRing';
 const SupplyChainMap = dynamic(() => import('@/components/map/SupplyChainMap'), {
   ssr: false,
   loading: () => (
-    <div className="flex items-center justify-center bg-[#0B1120] rounded-xl" style={{ height: '500px' }}>
+    <div className="flex items-center justify-center bg-[var(--c-bg)] rounded-xl" style={{ height: '500px' }}>
       <div className="text-center">
         <Map size={32} className="text-slate-600 mx-auto mb-2" />
         <p className="text-sm text-slate-400">Loading map...</p>
@@ -51,7 +51,7 @@ export default function MapPage() {
           <h2 className="text-lg font-bold text-slate-100">Supply Chain Map</h2>
           <p className="text-sm text-slate-400 mt-0.5">Global visualization of product origin and routing</p>
         </div>
-        <div className="flex items-center gap-1 bg-[#151E33] border border-[#253352] rounded-lg p-1">
+        <div className="flex items-center gap-1 bg-[var(--c-surface)] border border-[var(--c-border)] rounded-lg p-1">
           <button
             onClick={() => setViewMode('imports')}
             className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
@@ -75,19 +75,19 @@ export default function MapPage() {
 
         {/* Selector Panel */}
         <div className="lg:col-span-1">
-          <div className="bg-[#151E33] border border-[#253352] rounded-xl overflow-hidden">
-            <div className="p-4 border-b border-[#253352]">
+          <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl overflow-hidden">
+            <div className="p-4 border-b border-[var(--c-border)]">
               <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
                 {viewMode === 'imports' ? 'Select Import' : 'Select Product'}
               </p>
             </div>
-            <div className="divide-y divide-[#253352]">
+            <div className="divide-y divide-[var(--c-border)]">
               {viewMode === 'imports'
                 ? mockImports.map(imp => (
                     <button
                       key={imp.id}
                       onClick={() => setSelectedImport(imp.id)}
-                      className={`w-full text-left p-4 hover:bg-[#1C2844] transition-colors ${selectedImport === imp.id ? 'bg-blue-600/10 border-l-2 border-blue-500' : ''}`}
+                      className={`w-full text-left p-4 hover:bg-[var(--c-raised)] transition-colors ${selectedImport === imp.id ? 'bg-blue-600/10 border-l-2 border-blue-500' : ''}`}
                     >
                       <p className="text-xs font-mono font-semibold text-blue-300">{imp.entryNumber}</p>
                       <p className="text-xs text-slate-400 mt-0.5">{imp.portOfEntry}</p>
@@ -101,7 +101,7 @@ export default function MapPage() {
                     <button
                       key={prod.id}
                       onClick={() => setSelectedProduct(prod.id)}
-                      className={`w-full text-left p-4 hover:bg-[#1C2844] transition-colors ${selectedProduct === prod.id ? 'bg-blue-600/10 border-l-2 border-blue-500' : ''}`}
+                      className={`w-full text-left p-4 hover:bg-[var(--c-raised)] transition-colors ${selectedProduct === prod.id ? 'bg-blue-600/10 border-l-2 border-blue-500' : ''}`}
                     >
                       <div className="flex items-center gap-2">
                         <ScoreRingInline score={prod.score.overall} size={32} strokeWidth={3} />
@@ -118,7 +118,7 @@ export default function MapPage() {
 
           {/* Route Legend */}
           {viewMode === 'imports' && selectedImp && (
-            <div className="mt-4 bg-[#151E33] border border-[#253352] rounded-xl p-4">
+            <div className="mt-4 bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-4">
               <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Route</p>
               <div className="space-y-2">
                 {selectedImp.coordinates.map((coord, i) => (
@@ -137,9 +137,9 @@ export default function MapPage() {
 
         {/* Map */}
         <div className="lg:col-span-3">
-          <div className="bg-[#151E33] border border-[#253352] rounded-xl overflow-hidden">
+          <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl overflow-hidden">
             <Suspense fallback={
-              <div className="flex items-center justify-center bg-[#0B1120]" style={{ height: '500px' }}>
+              <div className="flex items-center justify-center bg-[var(--c-bg)]" style={{ height: '500px' }}>
                 <p className="text-slate-400">Loading map...</p>
               </div>
             }>
@@ -149,7 +149,7 @@ export default function MapPage() {
 
           {/* Selected item details */}
           {viewMode === 'imports' && selectedImp && (
-            <div className="mt-4 bg-[#151E33] border border-[#253352] rounded-xl p-4">
+            <div className="mt-4 bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-4">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-xs font-mono font-semibold text-blue-300">{selectedImp.entryNumber}</p>
@@ -177,7 +177,7 @@ export default function MapPage() {
           )}
 
           {viewMode === 'products' && selectedProd && (
-            <div className="mt-4 bg-[#151E33] border border-[#253352] rounded-xl p-4">
+            <div className="mt-4 bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <ScoreRingInline score={selectedProd.score.overall} size={48} strokeWidth={5} />
