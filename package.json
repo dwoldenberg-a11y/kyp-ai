@@ -12,6 +12,7 @@
     "@anthropic-ai/sdk": "^0.78.0",
     "@headlessui/react": "^2.2.9",
     "@types/leaflet": "^1.9.21",
+    "canvas": "^3.2.1",
     "framer-motion": "^12.35.2",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.577.0",
