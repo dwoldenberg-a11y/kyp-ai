@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useTheme } from '@/lib/theme-provider';
 
 const pageTitles: Record<string, { title: string; subtitle: string }> = {
-  '/': { title: 'Import Dashboard', subtitle: 'Overview of all imports, products, and compliance status' },
+  '/': { title: 'Product Passport by VLX', subtitle: 'Overview of all imports, products, and compliance status' },
   '/imports': { title: 'Imports', subtitle: 'CBP entry management, duties, and BOL tracking' },
   '/imports/new': { title: 'New Import', subtitle: 'Create an import entry from an entry packet or manually' },
   '/products': { title: 'Products', subtitle: 'Product registry with HTS codes and traceability scoring' },

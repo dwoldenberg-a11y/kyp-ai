@@ -45,77 +45,30 @@ interface ExtractedImport {
   voyageNumber: string;
   products: ExtractedProduct[];
   confidence: number; // 0-100
+  documentType?: string;
 }
 
-// ─── OCR simulation data ──────────────────────────────────────────────────────
-
-const MOCK_EXTRACTED: ExtractedImport = {
-  entryNumber: 'LAX-2024-9102847-1',
-  entryType: 'Type 01 - Formal Consumption Entry',
-  importerOfRecord: 'TechVault Industries LLC',
-  portOfEntry: 'Port of Long Beach',
-  portCode: 'LGB',
-  entryDate: '2025-01-15',
-  bolNumber: 'COSU621942340',
-  vesselName: 'EVER GIVEN II',
-  voyageNumber: 'VY2501-04',
-  confidence: 91,
-  products: [
-    {
-      id: 'ep-1',
-      name: 'Industrial Control PCB Assembly',
-      htsCode: '8537.10.9170',
-      quantity: 750,
-      unit: 'units',
-      value: 363750,
-      currency: 'USD',
-      countryOfOrigin: 'Mexico',
-      dutyRate: '0%',
-      supplierName: 'Monterrey Assembly Solutions SA de CV',
-      matchAction: 'use_existing',
-      matchedProductId: 'prod-001',
-      supplierAction: 'use_existing',
-      matchedSupplierId: 'sup-004',
-    },
-    {
-      id: 'ep-2',
-      name: 'Precision Steel Enclosure Kit',
-      htsCode: '7326.90.8688',
-      quantity: 500,
-      unit: 'sets',
-      value: 45000,
-      currency: 'USD',
-      countryOfOrigin: 'China',
-      dutyRate: '3.9%',
-      supplierName: 'Baosteel Shanghai Co., Ltd.',
-      matchAction: 'create_new',
-      supplierAction: 'use_existing',
-      matchedSupplierId: 'sup-001',
-    },
-  ],
-};
-
-// OCR processing stages
+// OCR processing stages (shown while awaiting API)
 const STAGES = [
-  { label: 'Reading document...', duration: 800 },
-  { label: 'Analyzing page structure...', duration: 700 },
-  { label: 'Extracting entry header data...', duration: 900 },
-  { label: 'Parsing product line items...', duration: 1000 },
-  { label: 'Extracting HTS codes & duty rates...', duration: 800 },
-  { label: 'Identifying suppliers & countries of origin...', duration: 700 },
-  { label: 'Matching against existing records...', duration: 600 },
-  { label: 'Finalizing extraction...', duration: 400 },
+  'Uploading document...',
+  'Analyzing page structure...',
+  'Recognizing document type...',
+  'Extracting entry header data...',
+  'Parsing product line items...',
+  'Extracting HTS codes & duty rates...',
+  'Identifying suppliers & countries of origin...',
+  'Finalizing extraction...',
 ];
 
-const LOW_QUALITY_STAGES = [
-  { label: 'Reading document...', duration: 600 },
-  { label: 'Image quality below threshold — upscaling to 300 DPI...', duration: 1200 },
-  { label: 'Re-analyzing with enhanced image...', duration: 900 },
-  { label: 'Extracting entry header data...', duration: 700 },
-  { label: 'Parsing product line items...', duration: 1000 },
-  { label: 'Extracting HTS codes & duty rates...', duration: 800 },
-  { label: 'Identifying suppliers...', duration: 600 },
-  { label: 'Matching against existing records...', duration: 500 },
+const UPSCALE_STAGES = [
+  'Uploading document...',
+  'Initial extraction attempt...',
+  'Low confidence detected — upscaling image to 300 DPI...',
+  'Re-analyzing with enhanced resolution...',
+  'Extracting entry header data...',
+  'Parsing product line items...',
+  'Extracting HTS codes & duty rates...',
+  'Finalizing extraction...',
 ];
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
@@ -152,7 +105,8 @@ export default function NewImportPage() {
   const [docType, setDocType] = useState('ENTRY_PACKET');
   const [stageIdx, setStageIdx] = useState(0);
   const [stageLog, setStageLog] = useState<string[]>([]);
-  const [simulateLowQuality, setSimulateLowQuality] = useState(false);
+  const [isUpscaling, setIsUpscaling] = useState(false);
+  const [ocrError, setOcrError] = useState<string | null>(null);
   const [extracted, setExtracted] = useState<ExtractedImport | null>(null);
   const [editMode, setEditMode] = useState<string | null>(null);
 
@@ -166,20 +120,103 @@ export default function NewImportPage() {
     maxFiles: 1,
   });
 
-  // ── Run OCR simulation ───────────────────────────────────────────────────
-  const runOCR = async () => {
+  // ── Run real OCR via API ─────────────────────────────────────────────────
+  const runOCR = async (overrideFile?: File) => {
+    const targetFile = overrideFile ?? file;
+    if (!targetFile) return;
+
     setStep('processing');
-    const stages = simulateLowQuality ? LOW_QUALITY_STAGES : STAGES;
     setStageLog([]);
+    setStageIdx(0);
+    setIsUpscaling(false);
+    setOcrError(null);
 
-    for (let i = 0; i < stages.length; i++) {
-      setStageIdx(i);
-      setStageLog(prev => [...prev, stages[i].label]);
-      await new Promise(r => setTimeout(r, stages[i].duration));
+    // Animate stages while waiting for the API (stages are cosmetic progress)
+    const stages = STAGES;
+    let stageTimer: ReturnType<typeof setInterval> | null = null;
+    let currentStage = 0;
+
+    const advanceStage = () => {
+      setStageIdx(i => {
+        const next = Math.min(i + 1, stages.length - 1);
+        setStageLog(prev => [...prev, stages[next]]);
+        currentStage = next;
+        return next;
+      });
+    };
+
+    setStageLog([stages[0]]);
+
+    // Advance a stage every ~1.5s while waiting
+    stageTimer = setInterval(() => {
+      if (currentStage < stages.length - 2) {
+        advanceStage();
+      }
+    }, 1500);
+
+    try {
+      const formData = new FormData();
+      formData.append('file', targetFile);
+      formData.append('docType', docType);
+
+      const res = await fetch('/api/ocr', { method: 'POST', body: formData });
+
+      if (stageTimer) clearInterval(stageTimer);
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({ error: res.statusText }));
+        throw new Error(err.error || `OCR failed: ${res.status}`);
+      }
+
+      const data: { extracted: ExtractedImport; upscaled: boolean } = await res.json();
+
+      if (data.upscaled) {
+        setIsUpscaling(true);
+        setStageLog(UPSCALE_STAGES);
+        setStageIdx(UPSCALE_STAGES.length - 1);
+      } else {
+        setStageLog(stages);
+        setStageIdx(stages.length - 1);
+      }
+
+      // Auto-match products against existing records
+      const { matchProducts } = await import('@/lib/mockData').then(m => ({
+        matchProducts: (products: ExtractedProduct[]) =>
+          products.map(p => {
+            const sameName = m.mockProducts.find(mp =>
+              mp.name.toLowerCase().includes(p.name.toLowerCase().split(' ')[0]) && p.name.length > 3
+            );
+            const sameHTS = !sameName ? m.mockProducts.find(mp => mp.htsCode.code === p.htsCode) : undefined;
+            const matchedProduct = sameName ?? sameHTS;
+
+            const sameSupplier = m.mockSuppliers.find(
+              s => s.name.toLowerCase().includes(p.supplierName.toLowerCase().split(' ')[0]) && p.supplierName.length > 3
+            );
+
+            return {
+              ...p,
+              matchAction: matchedProduct ? ('use_existing' as const) : ('create_new' as const),
+              matchedProductId: matchedProduct?.id,
+              supplierAction: sameSupplier ? ('use_existing' as const) : ('create_new' as const),
+              matchedSupplierId: sameSupplier?.id,
+            };
+          }),
+      }));
+
+      const enriched: ExtractedImport = {
+        ...data.extracted,
+        products: matchProducts(data.extracted.products),
+      };
+
+      await new Promise(r => setTimeout(r, 600)); // brief pause so user sees final stage
+      setExtracted(enriched);
+      setStep('review');
+    } catch (err) {
+      if (stageTimer) clearInterval(stageTimer);
+      const msg = err instanceof Error ? err.message : String(err);
+      setOcrError(msg);
+      setStep('upload');
     }
-
-    setExtracted(MOCK_EXTRACTED);
-    setStep('review');
   };
 
   // ── Field helpers ─────────────────────────────────────────────────────────
@@ -295,25 +332,25 @@ export default function NewImportPage() {
             )}
           </div>
 
-          {/* Low quality simulation toggle */}
-          <label className="flex items-center gap-2 cursor-pointer select-none w-fit">
-            <input type="checkbox" checked={simulateLowQuality} onChange={e => setSimulateLowQuality(e.target.checked)} className="accent-blue-500 w-4 h-4" />
-            <span className="text-xs text-slate-400">Simulate low-quality scan (test upscaling pipeline)</span>
-          </label>
+          {ocrError && (
+            <div className="flex items-start gap-3 bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-3 text-xs text-red-300">
+              <AlertTriangle size={14} className="flex-shrink-0 mt-0.5" />
+              <span><strong>OCR failed:</strong> {ocrError}</span>
+            </div>
+          )}
 
           <div className="flex gap-3">
             {file ? (
-              <button onClick={runOCR}
+              <button onClick={() => runOCR()}
                 className="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold py-3 rounded-lg transition-colors">
                 <ZoomIn size={16} /> Extract Data with AI OCR
               </button>
             ) : (
-              <button onClick={() => { setFile(new File(['demo'], 'Entry_Packet_LAX2024.pdf', { type: 'application/pdf' })); setTimeout(runOCR, 100); }}
-                className="flex-1 flex items-center justify-center gap-2 bg-[var(--c-raised)] border border-[var(--c-border)] hover:border-blue-500/30 text-slate-300 text-sm font-medium py-3 rounded-lg transition-colors">
-                <FileText size={16} className="text-blue-400" /> Demo — Extract Sample Entry Packet
-              </button>
+              <div className="flex-1 flex items-center justify-center gap-2 bg-[var(--c-raised)] border border-[var(--c-border)] text-slate-500 text-sm font-medium py-3 rounded-lg cursor-default select-none">
+                <FileText size={16} /> Upload a document above to begin extraction
+              </div>
             )}
-            <button onClick={() => setStep('review')}
+            <button onClick={() => { setExtracted(null); setStep('review'); }}
               className="px-5 py-3 bg-[var(--c-raised)] border border-[var(--c-border)] text-slate-300 text-sm rounded-lg hover:border-blue-500/30 transition-colors">
               Skip — Enter Manually
             </button>
@@ -329,7 +366,7 @@ export default function NewImportPage() {
               <div className="w-16 h-16 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
                 <Loader2 size={28} className="text-blue-400 animate-spin" />
               </div>
-              {simulateLowQuality && stageIdx === 1 && (
+              {isUpscaling && (
                 <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-yellow-500/20 border border-yellow-500/30 flex items-center justify-center">
                   <ZoomIn size={12} className="text-yellow-400" />
                 </div>
@@ -337,10 +374,10 @@ export default function NewImportPage() {
             </div>
             <div className="text-center">
               <p className="text-base font-semibold text-slate-200">
-                {simulateLowQuality ? LOW_QUALITY_STAGES[stageIdx]?.label : STAGES[stageIdx]?.label}
+                {stageLog[stageIdx] ?? 'Processing...'}
               </p>
               <p className="text-xs text-slate-400 mt-1">
-                Stage {stageIdx + 1} of {simulateLowQuality ? LOW_QUALITY_STAGES.length : STAGES.length}
+                Stage {stageIdx + 1} of {STAGES.length} · AI Vision extraction in progress
               </p>
             </div>
           </div>
@@ -348,9 +385,10 @@ export default function NewImportPage() {
           {/* Progress bar */}
           <div className="mb-6">
             <div className="h-1.5 bg-[var(--c-raised)] rounded-full overflow-hidden">
-              <div className="h-full bg-blue-500 rounded-full transition-all duration-500"
-                style={{ width: `${((stageIdx + 1) / (simulateLowQuality ? LOW_QUALITY_STAGES.length : STAGES.length)) * 100}%` }} />
+              <div className="h-full bg-blue-500 rounded-full transition-all duration-700"
+                style={{ width: `${((stageIdx + 1) / STAGES.length) * 85}%` }} />
             </div>
+            <p className="text-[10px] text-slate-500 mt-1.5 text-right">Waiting for Claude Vision API…</p>
           </div>
 
           {/* Stage log */}
@@ -366,16 +404,31 @@ export default function NewImportPage() {
             ))}
           </div>
 
-          {simulateLowQuality && stageLog.some(s => s.includes('upscal')) && (
+          {isUpscaling && (
             <div className="mt-3 flex items-center gap-2 text-xs text-yellow-400 bg-yellow-500/10 border border-yellow-500/20 rounded-lg px-3 py-2">
               <RotateCw size={12} className="animate-spin" />
-              Image resolution was too low — applying 300 DPI upscaling before re-analysis
+              Image resolution was too low — applied 2× upscaling before re-analysis
             </div>
           )}
         </div>
       )}
 
       {/* ── STEP 3: REVIEW ─────────────────────────────────────────────────── */}
+      {step === 'review' && !extracted && (
+        <div className="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-xl p-6 space-y-4">
+          <h3 className="text-sm font-semibold text-slate-200">Manual Entry</h3>
+          <p className="text-xs text-slate-400">No document was extracted. Fill in the details below or go back to upload a document.</p>
+          <button onClick={() => {
+            setExtracted({
+              entryNumber: '', entryType: '', importerOfRecord: '', portOfEntry: '',
+              portCode: '', entryDate: '', bolNumber: '', vesselName: '', voyageNumber: '',
+              products: [], confidence: 0, documentType: 'Manual',
+            });
+          }} className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold px-4 py-2.5 rounded-lg transition-colors">
+            <Plus size={14} /> Start Empty Entry
+          </button>
+        </div>
+      )}
       {step === 'review' && extracted && (
         <div className="space-y-5">
           {/* Confidence banner */}

@@ -66,18 +66,23 @@ export default function Sidebar() {
   return (
     <aside className="w-60 flex-shrink-0 bg-[var(--c-nav)] border-r border-[var(--c-border)] flex flex-col h-screen sticky top-0">
       {/* Logo */}
-      <div className="flex items-center gap-3 px-5 h-16 border-b border-[var(--c-border)]">
-        {/* VLX Logo Mark */}
-        <div className="relative w-8 h-8">
-          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8">
-            <rect width="32" height="32" rx="8" fill="#1E6FFF" fillOpacity="0.15" />
-            <path d="M6 8L12 24L16 14L20 24L26 8" stroke="#1E6FFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-            <circle cx="16" cy="14" r="2" fill="#FF6B2C"/>
-          </svg>
-        </div>
-        <div>
-          <span className="text-base font-bold text-white tracking-wider">VLX</span>
-          <span className="text-[10px] text-slate-400 block -mt-0.5 tracking-widest uppercase">Product Passport</span>
+      <div className="flex items-center gap-2.5 px-4 h-16 border-b border-[var(--c-border)]">
+        {/* VLX Icon Mark — orange geometric logo */}
+        <svg viewBox="0 0 100 82" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-7 w-auto flex-shrink-0">
+          {/* Left V-shape: two parallelogram stripes */}
+          <polygon points="0,0 14,0 34,82 20,82" fill="#F04E23"/>
+          <polygon points="20,0 34,0 28,24 14,24" fill="#F04E23"/>
+          {/* Diagonal S-curve connector */}
+          <path d="M28 82 Q38 50 52 40 Q66 30 72 0" stroke="#F04E23" strokeWidth="14" fill="none" strokeLinecap="round"/>
+          {/* Right A-shape: two parallelogram stripes */}
+          <polygon points="66,0 80,0 100,82 86,82" fill="#F04E23"/>
+          <polygon points="80,0 94,0 88,24 74,24" fill="#F04E23"/>
+        </svg>
+        <div className="min-w-0">
+          <div className="flex items-baseline gap-1">
+            <span className="text-sm font-extrabold text-white tracking-tight leading-none">vlx</span>
+          </div>
+          <span className="text-[9px] text-slate-400 tracking-widest uppercase leading-tight block">Product Passport</span>
         </div>
       </div>
 

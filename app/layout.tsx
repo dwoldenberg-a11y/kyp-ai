@@ -5,7 +5,7 @@ import TopBar from "@/components/layout/TopBar";
 import { ThemeProvider } from "@/lib/theme-provider";
 
 export const metadata: Metadata = {
-  title: "VLX Product Passport",
+  title: "Product Passport by VLX",
   description: "Product traceability and genealogy tracking for importers of record",
 };
 
